@@ -1,5 +1,18 @@
 # Ash: food plans on a budget (Gemini 4 NYC hackathon, 5 Sigma track)
 
+## What was built at this hackathon (Nov 21, 2026)
+Everything in this repo was built today, with AI coding assistance:
+- **Ash**, the voice/photo/text agent and its mobile web UI (visual design made in Google Stitch today)
+- **Intake** (Gemini 4 Hydrogen): voice, photos and text become a structured profile with budget, household, location, availability
+- **Decisions API gates**: eligibility per source, stock from photos, evidence checks on agent findings
+- **Planner** (Gemini 4 Carbon), plus the **verify-and-repair loop** (`lib/check.js`): hours, budget period, travel time, eligibility
+- **Travel-time model** with borough penalties (`lib/geo.js`)
+- **Managed Agent refresher** (`lib/refresh.js`): an Antigravity agent in a Google-hosted sandbox researches missing or stale hours, runs in the background after each request, and every finding passes an evidence gate
+- **Evaluation**: a baseline (one Gemini call with Google Search), a test set from strangers at the event, and a shared feasibility checker
+- **Import script** that converts an existing location export into Ash's format
+
+**Pre-existing, not built today:** the raw location list (`locations_rows.csv`), exported from the Saved by the Plate food map (2025). Ash treats it as unverified: imported hours are marked "confirm first" until the agent or a person re-checks them.
+
 A person talks to Ash, shows them photos, types, or does all three. Ash builds a week-long plan to get food in Harlem within their budget. The plan uses only verified sources, open at times the person can actually go, with stock read from real fridge photos.
 
 ## Model jobs

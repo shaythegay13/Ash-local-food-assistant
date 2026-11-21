@@ -1,0 +1,50 @@
+[
+  {
+    "id": "example-pantry-1",
+    "name": "EXAMPLE Pantry (replace with a real, verified Harlem pantry)",
+    "aliases": [],
+    "type": "pantry",
+    "address": "REPLACE",
+    "hours": { "Tue": [["10:00", "13:00"]], "Thu": [["16:00", "19:00"]] },
+    "eligibility": "Must live in ZIP 10027, 10030, 10031 or 10037; bring ID",
+    "cost": "free",
+    "accepts_snap": false,
+    "health_bucks": false,
+    "offers": ["canned goods", "rice", "some produce"],
+    "verified_by": "phone call / website, with date",
+    "stock": null
+  },
+  {
+    "id": "example-fridge-1",
+    "name": "EXAMPLE Community Fridge (replace)",
+    "aliases": [],
+    "type": "community_fridge",
+    "address": "REPLACE",
+    "hours": {
+      "Mon": [["00:00", "23:59"]], "Tue": [["00:00", "23:59"]], "Wed": [["00:00", "23:59"]],
+      "Thu": [["00:00", "23:59"]], "Fri": [["00:00", "23:59"]], "Sat": [["00:00", "23:59"]], "Sun": [["00:00", "23:59"]]
+    },
+    "eligibility": "open to all",
+    "cost": "free",
+    "accepts_snap": false,
+    "health_bucks": false,
+    "offers": ["whatever is donated"],
+    "verified_by": "Instagram account handle",
+    "stock": null
+  },
+  {
+    "id": "example-market-1",
+    "name": "EXAMPLE Farmers Market (replace)",
+    "aliases": [],
+    "type": "farmers_market",
+    "address": "REPLACE",
+    "hours": { "Sat": [["08:00", "15:00"]] },
+    "eligibility": "open to all",
+    "cost": "paid; produce roughly $2-4 per lb (verify)",
+    "accepts_snap": true,
+    "health_bucks": true,
+    "offers": ["fresh produce"],
+    "verified_by": "market website, with date",
+    "stock": null
+  }
+]

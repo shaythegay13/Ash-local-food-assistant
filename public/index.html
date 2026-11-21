@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jane</title>
+<style>
+  :root { --g:#2f6b3a; --bg:#f6f4ee; --ink:#1d1d1b; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:17px/1.45 system-ui,sans-serif; background:var(--bg); color:var(--ink); }
+  main { max-width:520px; margin:0 auto; padding:24px 18px 60px; }
+  h1 { margin:0 0 4px; color:var(--g); font-size:28px; }
+  #say { font-size:20px; min-height:60px; }
+  .row { display:flex; gap:12px; margin:18px 0 10px; }
+  .big { flex:1; padding:22px 10px; font-size:19px; border:0; border-radius:16px; background:var(--g); color:#fff; cursor:pointer; text-align:center; }
+  .big.rec { background:#b3261e; }
+  .big.alt { background:#fff; color:var(--g); border:2px solid var(--g); }
+  #thumbs { display:flex; gap:6px; flex-wrap:wrap; }
+  #thumbs img { width:64px; height:64px; object-fit:cover; border-radius:8px; }
+  form { display:flex; gap:8px; margin:10px 0; }
+  form input { flex:1; padding:10px; font-size:15px; border:1px solid #ccc; border-radius:10px; }
+  form button { padding:10px 14px; border:0; border-radius:10px; background:#ddd; }
+  .small { font-size:13px; color:#666; }
+  .card { background:#fff; border-radius:14px; padding:14px; margin-top:16px; }
+  .stop { border-top:1px solid #eee; padding:10px 0; }
+  .stop:first-child { border-top:0; }
+  .ok { color:var(--g); font-weight:600; } .warn { color:#b3261e; font-weight:600; }
+  #start { position:fixed; inset:0; background:var(--g); color:#fff; display:flex; align-items:center; justify-content:center; font-size:24px; z-index:9; cursor:pointer; text-align:center; padding:20px; }
+</style>
+</head>
+<body>
+<div id="start">Tap to talk with Jane</div>
+<main>
+  <h1>Jane</h1>
+  <p id="say">Hi, I'm Jane. How can I help today?</p>
+  <div class="row">
+    <button id="mic" class="big">Talk</button>
+    <label class="big alt">Photo<input id="cam" type="file" accept="image/*" capture="environment" multiple hidden></label>
+  </div>
+  <div id="thumbs"></div>
+  <form id="f"><input id="txt" placeholder="or type here"><button>Send</button></form>
+  <label class="small"><input type="checkbox" id="save"> Save this request as a test case (ask permission first)</label>
+  <section id="plan"></section>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+let rec = null, chunks = [], images = [], profile = null, busy = false;
+
+function speak(text, lang) {
+  if (!text || !("speechSynthesis" in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang === "es" ? "es-US" : "en-US";
+  speechSynthesis.speak(u);
+}
+$("start").onclick = () => { $("start").remove(); speak($("say").textContent); };
+
+$("mic").onclick = async () => {
+  if (busy) return;
+  if (rec && rec.state === "recording") return rec.stop();
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  rec = new MediaRecorder(stream); chunks = [];
+  rec.ondataavailable = (e) => chunks.push(e.data);
+  rec.onstop = () => {
+    stream.getTracks().forEach((t) => t.stop());
+    $("mic").textContent = "Talk"; $("mic").classList.remove("rec");
+    send(new Blob(chunks, { type: rec.mimeType }));
+  };
+  rec.start();
+  $("mic").textContent = "Tap to stop"; $("mic").classList.add("rec");
+};
+
+$("cam").onchange = (e) => {
+  for (const f of e.target.files) {
+    images.push(f);
+    const img = document.createElement("img"); img.src = URL.createObjectURL(f); $("thumbs").appendChild(img);
+  }
+  $("say").textContent = "Got it. Tell me about your budget, or tap Send.";
+};
+
+$("f").onsubmit = (e) => { e.preventDefault(); send(null); };
+
+async function send(audioBlob) {
+  const text = $("txt").value.trim();
+  if (!audioBlob && !text && !images.length) return;
+  busy = true; $("say").textContent = "Let me put a plan together…";
+  const fd = new FormData();
+  if (text) fd.append("text", text);
+  if (audioBlob) fd.append("audio", audioBlob, "voice." + (audioBlob.type.split("/")[1] || "webm").split(";")[0]);
+  images.forEach((f) => fd.append("images", f));
+  if (profile) fd.append("prior_profile", JSON.stringify(profile));
+  if ($("save").checked) fd.append("save", "1");
+  try {
+    const r = await fetch("/api/turn", { method: "POST", body: fd });
+    const d = await r.json();
+    if (d.profile) profile = d.profile;
+    $("say").textContent = d.say || d.error;
+    speak(d.say, profile?.language);
+    if (d.plan) renderPlan(d.plan, d.check);
+  } catch (err) {
+    $("say").textContent = "Connection problem. Try again.";
+  }
+  $("txt").value = ""; images = []; $("thumbs").innerHTML = ""; busy = false;
+}
+
+function esc(s) { return String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c])); }
+function renderPlan(plan, check) {
+  const stops = (plan.stops || []).map((s) => `
+    <div class="stop"><b>${esc(s.day)} ${esc(s.time)}</b> · ${esc(s.name || s.source_id)}<br>
+    <span class="small">${esc(s.address)}</span><br>${esc(s.get)} — $${Number(s.expected_cost_usd || 0).toFixed(2)}
+    <div class="small">${esc(s.why)}</div></div>`).join("");
+  const status = check?.feasible
+    ? `<p class="ok">Checked: every stop is open then, and the plan fits the budget.</p>`
+    : `<p class="warn">Heads up: ${esc((check?.errors || []).join(" "))}</p>`;
+  $("plan").innerHTML = `<div class="card">${status}${stops}
+    <p><b>Total: $${Number(plan.total_expected_cost_usd || 0).toFixed(2)}</b></p>
+    ${""}
+    ${(plan.caveats || []).length ? `<p class="small">${plan.caveats.map(esc).join("<br>")}</p>` : ""}</div>`;
+}
+</script>
+</body>
+</html>

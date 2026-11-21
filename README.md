@@ -1,6 +1,6 @@
-# Jane: food plans on a budget (Gemini 4 NYC hackathon, 5 Sigma track)
+# Ash: food plans on a budget (Gemini 4 NYC hackathon, 5 Sigma track)
 
-A person talks to Jane, shows her photos, types, or does all three. Jane builds a week-long plan to get food in Harlem within their budget. The plan uses only verified sources, open at times the person can actually go, with stock read from real fridge photos.
+A person talks to Ash, shows them photos, types, or does all three. Ash builds a week-long plan to get food in Harlem within their budget. The plan uses only verified sources, open at times the person can actually go, with stock read from real fridge photos.
 
 ## Model jobs
 | Step | Model | Job |
@@ -26,11 +26,11 @@ Switch models without code changes: `INTAKE_MODEL`, `PLANNER_MODEL`, `DECIDE_MOD
 1. **Test audio in the first 15 minutes.** Chrome records `audio/webm`. If Hydrogen rejects it, record on Safari (mp4) or convert to wav on the server.
 2. **Replace `data/sources.json`** with about 15 real Harlem sources. Verify each one's hours and eligibility, and fill in `verified_by` with how and when you checked. The eval only means something if this file is true.
 3. **Ingest stock**: save recent fridge Instagram photos, then upload them at `/admin.html` with the date each was posted. Stock older than 48h shows as "unknown" on purpose.
-4. **Collect test cases from strangers**: tick "Save this request as a test case" in the app, after asking their permission. Then open `eval/cases/<case>/meta.json` and fill in `truth` (their real budget and availability) so the scoring doesn't take Jane's word for it.
+4. **Collect test cases from strangers**: tick "Save this request as a test case" in the app, after asking their permission. Then open `eval/cases/<case>/meta.json` and fill in `truth` (their real budget and availability) so the scoring doesn't take Ash's word for it.
 
 ## Eval
 ```bash
-npm run eval     # writes eval/results.json, prints Jane vs baseline
+npm run eval     # writes eval/results.json, prints Ash vs baseline
 ```
 Metrics, both systems scored by the same checker (`lib/check.js`):
 - **Feasible rate**: every stop is a verified source, open at the scheduled time, inside the person's availability, eligible, and the plan is within budget
@@ -41,7 +41,7 @@ Metrics, both systems scored by the same checker (`lib/check.js`):
 
 ## Demo script (3 min)
 1. A stranger's real voice request, on stage or recorded earlier, with background noise.
-2. Jane's spoken plan and the "Checked" badge.
+2. Ash's spoken plan and the "Checked" badge.
 3. The baseline's plan for the same request, with its closed and hallucinated stops highlighted.
 4. The results table.
 5. One place it still breaks, and what you'd do next.

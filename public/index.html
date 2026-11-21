@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Jane</title>
+<title>Ash</title>
 <style>
   :root { --g:#2f6b3a; --bg:#f6f4ee; --ink:#1d1d1b; }
   * { box-sizing:border-box; }
@@ -29,10 +29,10 @@
 </style>
 </head>
 <body>
-<div id="start">Tap to talk with Jane</div>
+<div id="start">Tap to talk with Ash</div>
 <main>
-  <h1>Jane</h1>
-  <p id="say">Hi, I'm Jane. How can I help today?</p>
+  <h1>Ash</h1>
+  <p id="say">Hi, I'm Ash. How can I help today?</p>
   <div class="row">
     <button id="mic" class="big">Talk</button>
     <label class="big alt">Photo<input id="cam" type="file" accept="image/*" capture="environment" multiple hidden></label>
@@ -107,13 +107,14 @@ function esc(s) { return String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;
 function renderPlan(plan, check) {
   const stops = (plan.stops || []).map((s) => `
     <div class="stop"><b>${esc(s.day)} ${esc(s.time)}</b> · ${esc(s.name || s.source_id)}<br>
-    <span class="small">${esc(s.address)}</span><br>${esc(s.get)} — $${Number(s.expected_cost_usd || 0).toFixed(2)}
+    <span class="small">${esc(s.address)}${s.travel_minutes != null ? ` · ~${s.travel_minutes} min away` : ""}${s.hours_verified === false ? " · confirm hours first" : ""}</span><br>${esc(s.get)} — $${Number(s.expected_cost_usd || 0).toFixed(2)}
     <div class="small">${esc(s.why)}</div></div>`).join("");
   const status = check?.feasible
     ? `<p class="ok">Checked: every stop is open then, and the plan fits the budget.</p>`
     : `<p class="warn">Heads up: ${esc((check?.errors || []).join(" "))}</p>`;
   $("plan").innerHTML = `<div class="card">${status}${stops}
-    <p><b>Total: $${Number(plan.total_expected_cost_usd || 0).toFixed(2)}</b></p>
+    <p><b>Total: $${Number(plan.total_expected_cost_usd || 0).toFixed(2)}</b>${plan.days_covered_estimate != null ? ` · feeds the household about ${esc(plan.days_covered_estimate)} days` : ""}</p>
+    ${plan.gap_note ? `<p class="warn">${esc(plan.gap_note)}</p>` : ""}
     ${""}
     ${(plan.caveats || []).length ? `<p class="small">${plan.caveats.map(esc).join("<br>")}</p>` : ""}</div>`;
 }

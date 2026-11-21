@@ -1,0 +1,205 @@
+[
+  {
+    "id": "hcnsa",
+    "found": true,
+    "hours": [
+      {
+        "day": "Mon",
+        "start": "10:00",
+        "end": "14:00"
+      },
+      {
+        "day": "Tue",
+        "start": "10:00",
+        "end": "14:00"
+      },
+      {
+        "day": "Wed",
+        "start": "10:00",
+        "end": "14:00"
+      },
+      {
+        "day": "Thu",
+        "start": "10:00",
+        "end": "14:00"
+      },
+      {
+        "day": "Fri",
+        "start": "10:00",
+        "end": "12:00"
+      }
+    ],
+    "eligibility": "ID Required",
+    "status": "open",
+    "evidence_quote": "Mondays, Tuesdays, Wednesdays, and Thursdays 10:00AM-2:00PM Fridays 10:00AM-12:00PM",
+    "evidence_url": "https://www.nycfoodpolicy.org/nyc-food-resource-guide-central-harlem/",
+    "evidence_date": "2026-06-11",
+    "season_end": null,
+    "notes": "No soup kitchen at this location. Shares address with HRA Manhattan Food Stamp Center / St. Nicholas Benefits Access Center and is not listed in NYC HRA CFC_ACTIVE.pdf (2026-11-09) or Lemontree; call (212) 666-7538 ahead to confirm.",
+    "accepted": true,
+    "p_supported": 0.9648242489114894,
+    "p_current": 0.9169979371816617,
+    "reason": "evidence supports hours"
+  },
+  {
+    "id": "harlem-greenmarket-125",
+    "found": true,
+    "hours": [
+      {
+        "day": "Tue",
+        "start": "10:00",
+        "end": "19:00"
+      }
+    ],
+    "eligibility": "Open to the public (farmers market; not a free pantry)",
+    "status": "open",
+    "evidence_quote": "EVERY TUESDAY until November 27, 2026 from 10:00 am - 7:00 pm:",
+    "evidence_url": "https://gethealthyharlem.org/events/125th-street-harlem-farmers-market",
+    "evidence_date": "2026-06-05",
+    "season_end": "2026-11-27",
+    "notes": "Seasonal market on the Plaza of the Adam Clayton Powell Jr State Office Building (163 W 125th St). Runs weekly on Tuesdays until November 27, 2026.",
+    "accepted": true,
+    "p_supported": 0.930246590302035,
+    "p_current": 0.8820614132373799,
+    "reason": "evidence supports hours"
+  },
+  {
+    "id": "harlem-dowling",
+    "found": true,
+    "hours": [
+      {
+        "day": "Fri",
+        "start": "12:00",
+        "end": "14:00"
+      }
+    ],
+    "eligibility": "Proof of address / ID required (per Lemontree & NYC Food Policy Center)",
+    "status": "open",
+    "evidence_quote": "open every Friday from 12-2pm",
+    "evidence_url": "https://www.bizmarkiesjustafriend.org/emergency-food-pantry",
+    "evidence_date": null,
+    "season_end": null,
+    "notes": "Operated in partnership with Biz Markie's Just A Friend Foundation. Confirmed active in NYC HRA CFC_ACTIVE.pdf (2026-11-09) as Fri 12-2PM. NYC Food Policy Center (2026-06-11) notes lining up at 9:00 AM for best chance of receiving food.",
+    "accepted": true,
+    "p_supported": 0.9642665080678319,
+    "p_current": 0.8449943260877897,
+    "reason": "evidence supports hours"
+  },
+  {
+    "id": "antioch-outreach-ministries",
+    "found": true,
+    "hours": [
+      {
+        "day": "Sat",
+        "start": "07:30",
+        "end": "11:00"
+      }
+    ],
+    "eligibility": "ID is recommended, however no one will be turned away; one visit per week; first-come, first-served until food runs out",
+    "status": "open",
+    "evidence_quote": "Saturdays 7:30AM-11:00AM",
+    "evidence_url": "https://www.nycfoodpolicy.org/nyc-food-resource-guide-central-harlem/",
+    "evidence_date": "2026-06-11",
+    "season_end": null,
+    "notes": "Confirmed active in NYC HRA CFC_ACTIVE.pdf (2026-11-09) as SAT 7:30-11AM. Bring your own bags/cart; arriving before 7:30 AM is recommended due to long lines.",
+    "accepted": true,
+    "p_supported": 0.9734731608883641,
+    "p_current": 0.9139475424946599,
+    "reason": "evidence supports hours"
+  },
+  {
+    "id": "salem-united-methodist-church",
+    "found": true,
+    "hours": [
+      {
+        "day": "Fri",
+        "start": "11:00",
+        "end": "13:00"
+      }
+    ],
+    "eligibility": "ID required; bring own bags/shopping cart; first-come, first-served until supplies last",
+    "status": "open",
+    "evidence_quote": "Fridays 11:00AM-1:00PM",
+    "evidence_url": "https://www.nycfoodpolicy.org/nyc-food-resource-guide-central-harlem/",
+    "evidence_date": "2026-06-11",
+    "season_end": null,
+    "notes": "Church's November 2026 calendar (salem-harlem.org/calendar-of-events/) lists Food Pantry (Grab and Go Groceries) on Fridays 11:00 AM-1:00 PM at Salem Community Center (211 W 129th St), plus Grab & Go Meals Tue-Thu starting at 10:00 AM until supply is exhausted at 2190 Adam Clayton Powell Jr Blvd. NYC HRA CFC_ACTIVE.pdf (2026-11-09) lists TUE 10AM-12PM.",
+    "accepted": true,
+    "p_supported": 0.9723653050631229,
+    "p_current": 0.86333732302361,
+    "reason": "evidence supports hours"
+  },
+  {
+    "id": "mt-olivet-baptist-church-community-meal-program",
+    "found": true,
+    "hours": [
+      {
+        "day": "Tue",
+        "start": "10:30",
+        "end": "11:30"
+      },
+      {
+        "day": "Wed",
+        "start": "10:30",
+        "end": "11:30"
+      }
+    ],
+    "eligibility": "Current photo ID required, preferably government-issued; one visit per week",
+    "status": "open",
+    "evidence_quote": "Tuesdays and Wednesdays 10:30AM-11:30AM",
+    "evidence_url": "https://www.nycfoodpolicy.org/nyc-food-resource-guide-central-harlem/",
+    "evidence_date": "2026-06-11",
+    "season_end": null,
+    "notes": "Food pantry is open Tue & Wed 10:30-11:30 AM (NYC HRA CFC_ACTIVE.pdf dated 2026-11-09 lists TUE,WED 10AM-12PM). The Monday 12:00-1:30 PM Soup Kitchen is marked 'Closed permanently' on nycfoodpolicy.org (2026-06-11).",
+    "accepted": true,
+    "p_supported": 0.971395818827814,
+    "p_current": 0.9298650621372466,
+    "reason": "evidence supports hours"
+  },
+  {
+    "id": "community-food-advocate",
+    "found": false,
+    "hours": null,
+    "eligibility": null,
+    "status": "unknown",
+    "evidence_quote": null,
+    "evidence_url": null,
+    "evidence_date": null,
+    "season_end": null,
+    "notes": "No current food distribution hours or active listing found for 'Community Food Advocate' at 2012 Adam Clayton Powell Jr Blvd in NYC HRA CFC_ACTIVE.pdf (2026-11-09), NYC Food Policy Center (2026-06-11), Lemontree (foodhelpline.org), or West Harlem food directories. 'Community Food Advocate' appears to refer to a benefits-advocacy role rather than a walk-in food pantry.",
+    "accepted": false,
+    "reason": "no evidence"
+  },
+  {
+    "id": "refettorio-harlem",
+    "found": true,
+    "hours": [
+      {
+        "day": "Wed",
+        "start": "17:15",
+        "end": "18:45"
+      },
+      {
+        "day": "Thu",
+        "start": "17:15",
+        "end": "18:45"
+      },
+      {
+        "day": "Fri",
+        "start": "17:15",
+        "end": "18:45"
+      }
+    ],
+    "eligibility": "Open to all for Wed & Fri dinners and Tue Fresh Pantry; Thursday dinner is exclusively for families and children (any adult must have at least one child in their party)",
+    "status": "open",
+    "evidence_quote": "Wednesday & Friday - 5:15pm-6:45pm",
+    "evidence_url": "https://www.refettorioharlem.org/",
+    "evidence_date": "2026-01-22",
+    "season_end": null,
+    "notes": "Tuesday Fresh Pantry doors open at 2:00 PM (no closing time stated on refettorioharlem.org; westharlemdc.org lists 12-2 PM). Thanksgiving 2026 exceptions noted on site: closed Wed 11/25, serving 1:00-3:00 PM on Thu 11/26.",
+    "accepted": false,
+    "p_supported": 0.06348146592997568,
+    "p_current": 0.2548434639200504,
+    "reason": "gate rejected"
+  }
+]

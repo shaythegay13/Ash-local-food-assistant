@@ -1,8 +1,8 @@
-// Runs Jane vs. the baseline on every case in eval/cases/<case>/ and scores both with the same checker.
+// Runs Ash vs. the baseline on every case in eval/cases/<case>/ and scores both with the same checker.
 // Case folder: meta.json {"text": "...", "truth": {"budget_usd": 30, "availability": [...]} | null}
 //              optional audio.<ext>, img0.<ext>, img1.<ext>...
-// "truth" is what YOU confirm the person meant (budget, times). If null, Jane's own intake is used,
-// which flatters Jane, so fill truth in for every case you can.
+// "truth" is what YOU confirm the person meant (budget, times). If null, Ash's own intake is used,
+// which flatters Ash, so fill truth in for every case you can.
 import { readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { intake, janePlan, baselinePlan } from "../lib/jane.js";
 import { checkPlan } from "../lib/check.js";

@@ -71,4 +71,4 @@ app.post("/api/ingest", upload.single("image"), async (req, res) => {
 app.get("/api/sources", (_req, res) => res.json(loadSources()));
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Jane running on http://localhost:${port}`));
+app.listen(port, () => console.log(`Ash running on http://localhost:${port}`));

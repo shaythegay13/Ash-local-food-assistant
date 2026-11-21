@@ -1,0 +1,29 @@
+[
+  {
+    "at": "2026-11-21T17:46:41.518Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 3,
+    "found": 3,
+    "accepted": 1,
+    "dry": true
+  },
+  {
+    "at": "2026-11-21T17:56:40.352Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 3,
+    "found": 3,
+    "accepted": 3,
+    "dry": true
+  },
+  {
+    "at": "2026-11-21T18:01:36.543Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 8,
+    "found": 7,
+    "accepted": 6,
+    "dry": false
+  }
+]

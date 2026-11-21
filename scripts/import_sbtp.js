@@ -1,6 +1,7 @@
 // Import the Saved by the Plate map export (Supabase `locations` CSV) as UNVERIFIED candidate sources.
 // Usage (PowerShell):  node scripts/import_sbtp.js "C:\Users\shayb\Downloads\locations_rows.csv"
-// - Keeps food sources only (food banks/pantries, fridges, markets, CSAs); skips gardens and farms.
+// - Imports food sources AND community gardens/urban farms. Gardens/farms come in with no schedulable hours
+//   until the refresh agent confirms they give or sell food to the public, and when.
 // - Citywide by default; the planner filters by travel time from the person. Optional: --zips=10026,10027
 // - Parses simple hour strings ("24/7", "Thursday & Sunday 8am-4pm"); anything else -> hours unknown.
 // - Never overwrites a source already in data/sources.json (your hand-verified ones win).
@@ -9,7 +10,8 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 
 const zipArg = process.argv.find((a) => a.startsWith("--zips="));
 const ZIPS = zipArg ? new Set(zipArg.slice(7).split(",")) : null;
-const TYPE_MAP = { foodbank: "pantry", fridge: "community_fridge", market: "farmers_market", csa: "csa", garden: "community_garden" };
+const TYPE_MAP = { foodbank: "pantry", fridge: "community_fridge", market: "farmers_market", csa: "csa", garden: "community_garden", urbanfarm: "urban_farm" };
+const GROWING = new Set(["community_garden", "urban_farm"]);
 const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const DAY_RE = { mon: 0, tue: 1, wed: 2, thu: 3, fri: 4, sat: 5, sun: 6 };
@@ -98,8 +100,7 @@ let added = 0, withHours = 0, skipped = 0;
 for (const r of rows) {
   const type = TYPE_MAP[r.type];
   const zip = r.zip_code || (r.address.match(/\b(100\d\d)\b/) || [])[1];
-  // gardens only count if they distribute or sell food
-  if (!type || (ZIPS && !ZIPS.has(zip)) || r.status === "inactive" || (type === "community_garden" && !r.local_items_selling)) { skipped++; continue; }
+  if (!type || (ZIPS && !ZIPS.has(zip)) || r.status === "inactive") { skipped++; continue; }
   const name = r.name.trim();
   if (seen.has(normName(name)) || seenAddr.has(addrKey(r.address))) {
     // duplicate or already hand-verified: keep yours, but fill in missing coordinates
@@ -107,17 +108,21 @@ for (const r of rows) {
     if (ex && ex.lat == null && r.latitude) { ex.lat = Number(r.latitude); ex.lng = Number(r.longitude); }
     continue;
   }
-  const { hours, raw, note } = parseHours(r.open_hours || r.hours);
+  // Gardens/farms: their listed hours are visiting hours, NOT food distribution hours. Import with no
+  // schedulable hours; the refresh agent finds out whether and when they give or sell food.
+  const parsed = parseHours(r.open_hours || r.hours);
+  const { hours, raw, note } = GROWING.has(type) ? { hours: null, raw: parsed.raw ? `garden open hours (not food): ${parsed.raw}` : null } : parsed;
   let id = slug(name) || r.id; while (ids.has(id)) id += "-x";
   existing.push({
     id, name, aliases: [], type, address: r.address,
     hours: hours || {},
     hours_raw: raw, ...(note ? { hours_note: note } : {}),
-    eligibility: ["community_fridge", "farmers_market", "community_garden"].includes(type) ? "open to all" : "unknown - call ahead",
-    cost: type === "farmers_market" || type === "csa" ? "paid" : "free",
+    eligibility: ["community_fridge", "farmers_market", "community_garden", "urban_farm"].includes(type) ? "open to all" : "unknown - call ahead",
+    cost: type === "farmers_market" || type === "csa" ? "paid" : GROWING.has(type) ? "unknown" : "free",
     accepts_snap: type === "farmers_market" ? true : false,
     health_bucks: type === "farmers_market",
     offers: r.local_items_selling ? [r.local_items_selling] : [],
+    ...(GROWING.has(type) ? { food_distribution: "unknown" } : {}),
     phone: r.phone || null, website: r.website || r.social_media_website1 || null,
     lat: Number(r.latitude) || null, lng: Number(r.longitude) || null,
     verified_by: `UNVERIFIED - Saved by the Plate map export (source: ${r.source}, last updated ${r.updated_at.slice(0, 10)})`,

@@ -25,5 +25,86 @@
     "found": 7,
     "accepted": 6,
     "dry": false
+  },
+  {
+    "at": "2026-11-21T19:53:46.593Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 4,
+    "found": 4,
+    "accepted": 4,
+    "dry": false
+  },
+  {
+    "at": "2026-11-21T20:09:53.938Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 4,
+    "found": 4,
+    "accepted": 3,
+    "dry": false
+  },
+  {
+    "at": "2026-11-21T20:14:01.020Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 4,
+    "found": 4,
+    "accepted": 3,
+    "dry": false
+  },
+  {
+    "at": "2026-11-21T20:25:54.152Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 4,
+    "found": 3,
+    "accepted": 3,
+    "dry": false
+  },
+  {
+    "at": "2026-11-21T20:43:54.682Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 4,
+    "found": 4,
+    "accepted": 2,
+    "dry": false
+  },
+  {
+    "at": "2026-11-21T20:49:13.994Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 4,
+    "found": 4,
+    "accepted": 3,
+    "dry": false
+  },
+  {
+    "at": "2026-11-21T21:05:24.730Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 4,
+    "found": 4,
+    "accepted": 3,
+    "dry": false
+  },
+  {
+    "at": "2026-11-21T21:10:20.577Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 4,
+    "found": 4,
+    "accepted": 2,
+    "dry": false
+  },
+  {
+    "at": "2026-11-21T21:40:16.721Z",
+    "agent": "antigravity-preview-09-2026",
+    "model": "gemini-4-hydrogen",
+    "checked": 4,
+    "found": 3,
+    "accepted": 2,
+    "dry": false
   }
 ]

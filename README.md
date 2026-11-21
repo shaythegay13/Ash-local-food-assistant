@@ -5,7 +5,7 @@ Everything in this repo was built today, with AI coding assistance:
 - **Ash**, the voice/photo/text agent and its mobile web UI (visual design made in Google Stitch today)
 - **Intake** (Gemini 4 Hydrogen): voice, photos and text become a structured profile with budget, household, location, availability
 - **Decisions API gates**: eligibility per source, stock from photos, evidence checks on agent findings
-- **Planner** (Gemini 4 Carbon), plus the **verify-and-repair loop** (`lib/check.js`): hours, budget period, travel time, eligibility
+- **Planner** (Gemini 4 Neon; Carbon was too slow for a live user), plus the **verify-and-repair loop** (`lib/check.js`): hours, budget period, travel time, eligibility
 - **Travel-time model** with borough penalties (`lib/geo.js`)
 - **Managed Agent refresher** (`lib/refresh.js`): an Antigravity agent in a Google-hosted sandbox researches missing or stale hours, runs in the background after each request, and every finding passes an evidence gate
 - **Evaluation**: a baseline (one Gemini call with Google Search), a test set from strangers at the event, and a shared feasibility checker
@@ -20,7 +20,7 @@ A person talks to Ash, shows them photos, types, or does all three. Ash builds a
 |---|---|---|
 | Intake | `gemini-4-hydrogen` | Voice + photos + text → structured profile (budget, household, times, diet, equipment, food on hand) |
 | Gates | `gemini-decision-1` (Decisions API) | Eligibility per source (one batched call); stock / produce / unsafe from fridge photos |
-| Planner | `gemini-4-carbon` | Cheapest feasible week from the gated candidates; one repair pass if verification fails |
+| Planner | `gemini-4-neon` (low thinking) | Cheapest feasible week from the gated candidates; one repair pass if verification fails. Switched from Carbon, which took 1–2 min per plan |
 | Hours | **code, not a model** | Opening hours are structured data, so a deterministic check is exact |
 | Baseline | `gemini-4-hydrogen` + Google Search | One call, same raw inputs, no map and no gates |
 

@@ -2,121 +2,410 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F6F4EE">
 <title>Ash</title>
+<!-- Visual language from the Ash design system made in Google Stitch today; built as a chat-style app. -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-  :root { --g:#2f6b3a; --bg:#f6f4ee; --ink:#1d1d1b; }
-  * { box-sizing:border-box; }
-  body { margin:0; font:17px/1.45 system-ui,sans-serif; background:var(--bg); color:var(--ink); }
-  main { max-width:520px; margin:0 auto; padding:24px 18px 60px; }
-  h1 { margin:0 0 4px; color:var(--g); font-size:28px; }
-  #say { font-size:20px; min-height:60px; }
-  .row { display:flex; gap:12px; margin:18px 0 10px; }
-  .big { flex:1; padding:22px 10px; font-size:19px; border:0; border-radius:16px; background:var(--g); color:#fff; cursor:pointer; text-align:center; }
-  .big.rec { background:#b3261e; }
-  .big.alt { background:#fff; color:var(--g); border:2px solid var(--g); }
-  #thumbs { display:flex; gap:6px; flex-wrap:wrap; }
-  #thumbs img { width:64px; height:64px; object-fit:cover; border-radius:8px; }
-  form { display:flex; gap:8px; margin:10px 0; }
-  form input { flex:1; padding:10px; font-size:15px; border:1px solid #ccc; border-radius:10px; }
-  form button { padding:10px 14px; border:0; border-radius:10px; background:#ddd; }
-  .small { font-size:13px; color:#666; }
-  .card { background:#fff; border-radius:14px; padding:14px; margin-top:16px; }
-  .stop { border-top:1px solid #eee; padding:10px 0; }
-  .stop:first-child { border-top:0; }
-  .ok { color:var(--g); font-weight:600; } .warn { color:#b3261e; font-weight:600; }
-  #start { position:fixed; inset:0; background:var(--g); color:#fff; display:flex; align-items:center; justify-content:center; font-size:24px; z-index:9; cursor:pointer; text-align:center; padding:20px; }
+  :root {
+    --surface:#F6F4EE; --ink:#1D1D1B; --card:#FFFFFF; --low:#F3F0EC; --high:#E5E2DE; --variant:#4A4A46;
+    --primary:#2F6B3A; --primary-c:#DCE5D8; --on-primary-c:#135224;
+    --warn-c:#FFF4D6; --on-warn-c:#8A5A00; --error:#B3261E; --error-c:#FFEDEA; --on-error-c:#910809;
+    --outline:#787774; --outline-v:#C8C6C3; --shadow:0 6px 24px rgba(29,29,27,.08), 0 1px 3px rgba(29,29,27,.06);
+  }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--surface); color:var(--ink); font:400 16px/23px Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  .icon { font-family:"Material Symbols Outlined"; font-weight:400; font-style:normal; font-size:22px; line-height:1; display:inline-block; vertical-align:middle; font-variation-settings:"FILL" 0; }
+  .icon.fill { font-variation-settings:"FILL" 1; }
+  button { font:inherit; color:inherit; }
+
+  /* ---------- app shell ---------- */
+  .app { max-width:480px; margin:0 auto; height:100%; display:flex; flex-direction:column; }
+  .topbar { display:flex; align-items:center; gap:10px; padding:14px 18px; padding-top:max(14px, env(safe-area-inset-top)); }
+  .avatar { width:36px; height:36px; border-radius:50%; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .avatar .icon { font-size:20px; }
+  .topbar .name { font-weight:700; font-size:18px; }
+  .topbar .status { font-size:13px; color:var(--variant); }
+  .topbar .spacer { flex:1; }
+  .ghost { white-space:nowrap; display:inline-flex; align-items:center; gap:6px; border:1px solid var(--outline-v); background:var(--card); border-radius:999px; padding:8px 14px; font-weight:600; font-size:14px; cursor:pointer; }
+  .ghost:hover { background:var(--low); }
+  .testtoggle { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--variant); cursor:pointer; user-select:none; }
+  .testtoggle input { accent-color:var(--primary); }
+  .hidden { display:none !important; }
+
+  /* ---------- welcome: big Ash orb + small speech bubble at its upper right ---------- */
+  .welcome { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; gap:22px; }
+  .stage { position:relative; width:300px; height:300px; display:flex; align-items:center; justify-content:center; }
+  .orb { width:200px; height:200px; border-radius:50%; border:0; cursor:pointer; color:#fff;
+    background:radial-gradient(circle at 32% 28%, #5FA36B 0%, #2F6B3A 55%, #1F4D28 100%);
+    box-shadow:0 24px 60px rgba(47,107,58,.35), inset 0 -10px 30px rgba(0,0,0,.15), inset 0 10px 24px rgba(255,255,255,.18);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+    animation:float 4.5s ease-in-out infinite, rise .45s cubic-bezier(.2,0,0,1); transition:transform .15s; }
+  .orb:active { transform:scale(.97); }
+  .orb .icon { font-size:56px; }
+  .orb .lbl { font-weight:600; font-size:15px; opacity:.9; }
+  .orb::after { content:""; position:absolute; inset:50px; border-radius:50%; border:2px solid rgba(47,107,58,.18); animation:halo 3s ease-out infinite; pointer-events:none; }
+  @keyframes halo { 0%{ transform:scale(.95); opacity:.9 } 100%{ transform:scale(1.25); opacity:0 } }
+  .orb.rec { background:radial-gradient(circle at 32% 28%, #E0625A 0%, #B3261E 55%, #7E1A15 100%); box-shadow:0 24px 60px rgba(179,38,30,.35); animation:breathe 1.1s ease-in-out infinite; }
+  @keyframes breathe { 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.05) } }
+  .speech { position:absolute; top:0; right:-6px; max-width:190px; background:var(--card); color:var(--ink); border-radius:18px 18px 18px 6px;
+    padding:10px 14px; font-size:15px; line-height:20px; font-weight:600; box-shadow:var(--shadow); animation:rise .5s .15s both cubic-bezier(.2,0,0,1); }
+  @keyframes float { 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-8px) } }
+  @keyframes rise { from{ opacity:0; transform:translateY(12px) } to{ opacity:1; transform:none } }
+  .welcome .hint { color:var(--variant); font-size:15px; line-height:21px; text-align:center; max-width:300px; }
+  /* ---------- conversation ---------- */
+  .thread { flex:1; min-height:0; overflow-y:auto; padding:8px 16px 16px; display:flex; flex-direction:column; gap:12px; scroll-behavior:smooth; }
+  .thread > * { flex-shrink:0; }
+  .msg { max-width:86%; padding:12px 16px; border-radius:20px; animation:rise .25s cubic-bezier(.2,0,0,1); white-space:pre-wrap; }
+  .msg.ash { align-self:flex-start; background:var(--card); border-bottom-left-radius:6px; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+  .msg.me { align-self:flex-end; background:var(--primary); color:#fff; border-bottom-right-radius:6px; }
+  .msg.me .icon { font-size:18px; margin-right:4px; }
+  .msg.me img { width:56px; height:56px; object-fit:cover; border-radius:10px; margin:6px 6px 0 0; }
+  .typing { display:flex; align-items:center; gap:10px; color:var(--variant); font-size:14px; }
+  .dots { display:inline-flex; gap:5px; }
+  .dots i { width:8px; height:8px; border-radius:50%; background:var(--primary); animation:pulse 1.2s ease-in-out infinite; }
+  .dots i:nth-child(2){animation-delay:.2s} .dots i:nth-child(3){animation-delay:.4s}
+  @keyframes pulse { 0%,100%{opacity:.25;transform:scale(.8)} 50%{opacity:1;transform:scale(1)} }
+  .retry { margin-top:10px; }
+
+  /* ---------- plan ---------- */
+  .plan { align-self:stretch; background:var(--card); border-radius:22px; box-shadow:var(--shadow); overflow:hidden; animation:rise .3s cubic-bezier(.2,0,0,1); }
+  .plan-head { padding:16px 18px 12px; display:flex; justify-content:space-between; align-items:flex-end; gap:12px; }
+  .plan-head .total { font-size:30px; line-height:34px; font-weight:700; letter-spacing:-.5px; font-variant-numeric:tabular-nums; }
+  .plan-head .sub { color:var(--variant); font-size:14px; }
+  .plan-head .days { text-align:right; font-size:14px; color:var(--variant); }
+  .plan-head .days b { display:block; font-size:22px; color:var(--ink); }
+  .badge { margin:0 14px 12px; display:flex; gap:8px; align-items:flex-start; border-radius:14px; padding:10px 12px; font-size:14px; line-height:19px; font-weight:500; }
+  .badge .icon { font-size:20px; }
+  .badge.ok { background:var(--primary-c); color:var(--on-primary-c); }
+  .badge.warn { background:var(--warn-c); color:var(--on-warn-c); }
+  .badge.bad { background:var(--error-c); color:var(--on-error-c); }
+  .map { height:220px; background:var(--low); margin:0 14px; border-radius:16px; overflow:hidden; border:1px solid var(--high); }
+  .pin { width:28px; height:28px; border-radius:50%; background:var(--primary); color:#fff; font:700 13px Inter,sans-serif; display:flex; align-items:center; justify-content:center; border:2px solid #fff; box-shadow:0 2px 6px rgba(0,0,0,.3); }
+  .pin.paid { background:#1D1D1B; }
+  .home { width:16px; height:16px; border-radius:50%; background:#1a73e8; border:3px solid #fff; box-shadow:0 0 0 6px rgba(26,115,232,.2); }
+  .daygroup { padding:6px 18px 0; }
+  .dayhdr { font-size:12px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--variant); padding:12px 0 6px; }
+  .stop { display:flex; gap:12px; padding:10px 0; border-top:1px solid var(--low); }
+  .dayhdr + .stop { border-top:0; }
+  .stop .num { width:28px; height:28px; border-radius:50%; background:var(--primary); color:#fff; font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+  .stop .num.paid { background:#1D1D1B; }
+  .stop .body { flex:1; min-width:0; }
+  .stop .row1 { display:flex; justify-content:space-between; gap:8px; align-items:baseline; }
+  .stop .time { font-weight:700; font-variant-numeric:tabular-nums; }
+  .stop .cost { font-weight:700; font-variant-numeric:tabular-nums; }
+  .stop .cost.free { color:var(--primary); }
+  .stop .place { font-weight:600; }
+  .stop .meta { color:var(--variant); font-size:14px; line-height:19px; }
+  .stop .get { font-size:15px; margin-top:2px; }
+  .stop a.dir { color:var(--primary); font-weight:600; font-size:14px; text-decoration:none; display:inline-flex; align-items:center; gap:2px; margin-top:4px; }
+  .chips { display:flex; flex-wrap:wrap; gap:4px; margin-top:6px; }
+  .chip { padding:2px 8px; border-radius:999px; font-size:12px; font-weight:600; line-height:20px; }
+  .chip.g { background:var(--primary-c); color:var(--on-primary-c); }
+  .chip.n { background:var(--low); color:var(--variant); border:1px solid var(--high); }
+  .chip.w { background:var(--warn-c); color:var(--on-warn-c); }
+  .notes { padding:12px 18px 16px; display:flex; flex-direction:column; gap:6px; border-top:1px solid var(--low); margin-top:8px; }
+  .notes .gap { color:var(--error); font-weight:600; font-size:14px; }
+  .notes .n { color:var(--variant); font-size:13px; line-height:18px; }
+  details.more summary { cursor:pointer; color:var(--primary); font-weight:600; font-size:14px; list-style:none; }
+  details.more summary::-webkit-details-marker { display:none; }
+
+  /* ---------- composer ---------- */
+  .composer { padding:10px 12px; padding-bottom:max(12px, env(safe-area-inset-bottom)); display:flex; align-items:center; gap:8px; background:linear-gradient(transparent, var(--surface) 25%); }
+  .composer .field { flex:1; min-width:0; display:flex; align-items:center; background:var(--card); border:1px solid var(--outline-v); border-radius:999px; padding:0 6px 0 16px; min-height:52px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+  .composer input[type=text] { flex:1; min-width:0; border:0; outline:0; font:400 16px Inter,sans-serif; background:transparent; color:var(--ink); }
+  .iconbtn { width:40px; height:40px; border-radius:50%; border:0; background:transparent; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--primary); }
+  .iconbtn:hover { background:var(--low); }
+  .mic { width:52px; height:52px; border-radius:50%; border:0; background:var(--primary); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; box-shadow:0 4px 12px rgba(47,107,58,.3); }
+  .mic .icon { font-size:26px; }
+  .mic.rec, .bigmic.rec { background:var(--error); box-shadow:0 0 0 0 rgba(179,38,30,.5); animation:ring 1.2s infinite; }
+  @keyframes ring { 0%{box-shadow:0 0 0 0 rgba(179,38,30,.45)} 100%{box-shadow:0 0 0 18px rgba(179,38,30,0)} }
+  .tray { display:flex; gap:6px; padding:0 16px; }
+  .tray img { width:48px; height:48px; object-fit:cover; border-radius:10px; border:1px solid var(--outline-v); }
+  .listening-bar { text-align:center; font-size:14px; color:var(--error); font-weight:600; padding:4px 0 0; }
 </style>
 </head>
 <body>
-<div id="start">Tap to talk with Ash</div>
-<main>
-  <h1>Ash</h1>
-  <p id="say">Hi, I'm Ash. How can I help today?</p>
-  <div class="row">
-    <button id="mic" class="big">Talk</button>
-    <label class="big alt">Photo<input id="cam" type="file" accept="image/*" capture="environment" multiple hidden></label>
-  </div>
-  <div id="thumbs"></div>
-  <form id="f"><input id="txt" placeholder="or type here"><button>Send</button></form>
-  <label class="small"><input type="checkbox" id="save"> Save this request as a test case (ask permission first)</label>
-  <section id="plan"></section>
-</main>
+<div class="app">
+  <header class="topbar">
+    <div class="avatar"><span class="icon fill">eco</span></div>
+    <div style="min-width:0"><div class="name">Ash</div><div class="status" id="status">Food on a budget</div></div>
+    <div class="spacer"></div>
+    <label class="testtoggle" title="Save the next request as an evaluation case (ask permission first)"><input type="checkbox" id="save">Test</label>
+    <button class="ghost hidden" id="restart" type="button" aria-label="Start over"><span class="icon">restart_alt</span>New</button>
+  </header>
+
+  <section class="welcome" id="welcome">
+    <div class="stage">
+      <button class="orb" id="bigmic" type="button" aria-label="Tap to talk to Ash"><span class="icon fill">mic</span><span class="lbl" id="orbLbl">Tap to talk</span></button>
+      <div class="speech" id="heroText">Hi, I'm Ash. How can I help today?</div>
+    </div>
+    <div class="hint" id="welcomeHint">Tell me your budget, how long it has to last, who you're feeding, where you live, and when you can shop.</div>
+  </section>
+
+  <main class="thread hidden" id="thread" aria-live="polite"></main>
+
+  <div class="listening-bar hidden" id="listening">Listening… tap the mic to finish</div>
+  <div class="tray" id="tray"></div>
+  <form class="composer" id="composer">
+    <div class="field">
+      <input type="text" id="txt" placeholder="Message Ash" aria-label="Message Ash" autocomplete="off">
+      <label class="iconbtn" title="Add a photo"><span class="icon">photo_camera</span><input id="cam" type="file" accept="image/*" capture="environment" multiple hidden></label>
+      <button class="iconbtn" type="submit" title="Send"><span class="icon">send</span></button>
+    </div>
+    <button class="mic" id="mic" type="button" aria-label="Talk to Ash"><span class="icon fill">mic</span></button>
+  </form>
+</div>
+
 <script>
 const $ = (id) => document.getElementById(id);
-let rec = null, chunks = [], images = [], profile = null, busy = false;
+let rec = null, chunks = [], images = [], profile = null, busy = false, lastForm = null, started = false, maps = [];
 
-function speak(text, lang) {
-  if (!text || !("speechSynthesis" in window)) return;
-  speechSynthesis.cancel();
+const L10N = {
+  en: { days:{Mon:"Monday",Tue:"Tuesday",Wed:"Wednesday",Thu:"Thursday",Fri:"Friday",Sat:"Saturday",Sun:"Sunday"}, today:"Today", tomorrow:"Tomorrow",
+    away:"min", total:"total", days_lbl:"days covered", ok:"Checked: every stop is open then, and the plan fits your budget.",
+    warn:(n)=>`Checked against listed hours. ${n} stop${n>1?"s":""} marked “Call first” should be confirmed before you go.`,
+    bad:"Heads up:", free:"Free", snap:"SNAP", hb:"Health Bucks", id:"Bring ID", confirm:"Call first", dir:"Directions",
+    thinking:(s)=>`Building your plan · ${s}s`, error:"Sorry, something went wrong on my end.", retry:"Try again",
+    more:"Details", research:"I'm also double-checking hours for places near you in the background.", photos:(n)=>`${n} photo${n>1?"s":""}`, voice:"Voice message" },
+  es: { days:{Mon:"Lunes",Tue:"Martes",Wed:"Miércoles",Thu:"Jueves",Fri:"Viernes",Sat:"Sábado",Sun:"Domingo"}, today:"Hoy", tomorrow:"Mañana",
+    away:"min", total:"total", days_lbl:"días cubiertos", ok:"Verificado: cada parada está abierta a esa hora y el plan se ajusta a tu presupuesto.",
+    warn:(n)=>`Verificado con horarios publicados. Confirma ${n} parada${n>1?"s":""} marcada${n>1?"s":""} “Llamar antes”.`,
+    bad:"Atención:", free:"Gratis", snap:"SNAP", hb:"Health Bucks", id:"Traer ID", confirm:"Llamar antes", dir:"Cómo llegar",
+    thinking:(s)=>`Armando tu plan · ${s}s`, error:"Perdón, algo salió mal de mi lado.", retry:"Intentar otra vez",
+    more:"Detalles", research:"También estoy revisando horarios de lugares cerca de ti.", photos:(n)=>`${n} foto${n>1?"s":""}`, voice:"Mensaje de voz" },
+};
+const T = () => L10N[profile?.language === "es" ? "es" : "en"];
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+
+// Ash's voice: Gemini TTS from the server; falls back to the browser voice if it fails.
+let currentAudio = null;
+function stopSpeaking() { speechSynthesis?.cancel(); if (currentAudio) { currentAudio.pause(); currentAudio = null; } }
+function browserSpeak(text) {
+  if (!("speechSynthesis" in window)) return;
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = lang === "es" ? "es-US" : "en-US";
+  u.lang = profile?.language === "es" ? "es-US" : "en-US";
   speechSynthesis.speak(u);
 }
-$("start").onclick = () => { $("start").remove(); speak($("say").textContent); };
+async function speak(text) {
+  if (!text) return;
+  stopSpeaking();
+  try {
+    const r = await fetch("/api/tts", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) });
+    if (!r.ok) throw new Error("tts " + r.status);
+    const url = URL.createObjectURL(await r.blob());
+    currentAudio = new Audio(url);
+    await currentAudio.play();
+  } catch (e) {
+    console.warn("Gemini voice unavailable, using browser voice:", e.message);
+    browserSpeak(text);
+  }
+}
+function startConversation() {
+  if (started) return;
+  started = true;
+  $("welcome").classList.add("hidden");
+  $("thread").classList.remove("hidden");
+  $("restart").classList.remove("hidden");
+  addAsh($("heroText").textContent);
+}
+function scrollDown() { const t = $("thread"); requestAnimationFrame(() => t.scrollTop = t.scrollHeight); }
+function addAsh(text, extra = "") {
+  const el = document.createElement("div"); el.className = "msg ash"; el.innerHTML = esc(text) + extra;
+  $("thread").appendChild(el); scrollDown(); return el;
+}
+function addMe(html) {
+  const el = document.createElement("div"); el.className = "msg me"; el.innerHTML = html;
+  $("thread").appendChild(el); scrollDown(); return el;
+}
 
-$("mic").onclick = async () => {
+// ---------- voice ----------
+async function toggleMic() {
   if (busy) return;
   if (rec && rec.state === "recording") return rec.stop();
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+  catch { startConversation(); addAsh("I can't hear you: microphone access is blocked. You can type instead."); return; }
   rec = new MediaRecorder(stream); chunks = [];
   rec.ondataavailable = (e) => chunks.push(e.data);
   rec.onstop = () => {
     stream.getTracks().forEach((t) => t.stop());
-    $("mic").textContent = "Talk"; $("mic").classList.remove("rec");
+    ["mic", "bigmic"].forEach((id) => $(id).classList.remove("rec"));
+    $("orbLbl").textContent = "Tap to talk";
+    $("listening").classList.add("hidden");
     send(new Blob(chunks, { type: rec.mimeType }));
   };
   rec.start();
-  $("mic").textContent = "Tap to stop"; $("mic").classList.add("rec");
-};
+  stopSpeaking();
+  ["mic", "bigmic"].forEach((id) => $(id).classList.add("rec"));
+  $("orbLbl").textContent = "Listening… tap to finish";
+  $("listening").classList.remove("hidden");
+}
+$("mic").onclick = toggleMic;
+$("bigmic").onclick = toggleMic;
 
+// ---------- photos / text ----------
 $("cam").onchange = (e) => {
   for (const f of e.target.files) {
     images.push(f);
-    const img = document.createElement("img"); img.src = URL.createObjectURL(f); $("thumbs").appendChild(img);
+    const img = document.createElement("img"); img.src = URL.createObjectURL(f); img.alt = "photo to send"; $("tray").appendChild(img);
   }
-  $("say").textContent = "Got it. Tell me about your budget, or tap Send.";
+  e.target.value = "";
+};
+$("composer").onsubmit = (e) => { e.preventDefault(); send(null); };
+
+$("restart").onclick = () => {
+  stopSpeaking();
+  profile = null; lastForm = null; images = []; maps.forEach((m) => m.remove()); maps = [];
+  $("thread").innerHTML = ""; $("tray").innerHTML = ""; $("txt").value = "";
+  started = false; $("thread").classList.add("hidden"); $("welcome").classList.remove("hidden"); $("restart").classList.add("hidden");
 };
 
-$("f").onsubmit = (e) => { e.preventDefault(); send(null); };
-
-async function send(audioBlob) {
+function send(audioBlob) {
   const text = $("txt").value.trim();
   if (!audioBlob && !text && !images.length) return;
-  busy = true; $("say").textContent = "Let me put a plan together…";
+  startConversation();
   const fd = new FormData();
-  if (text) fd.append("text", text);
-  if (audioBlob) fd.append("audio", audioBlob, "voice." + (audioBlob.type.split("/")[1] || "webm").split(";")[0]);
-  images.forEach((f) => fd.append("images", f));
+  let bubble = "";
+  if (audioBlob) { fd.append("audio", audioBlob, "voice." + (audioBlob.type.split("/")[1] || "webm").split(";")[0]); bubble += `<span class="icon">graphic_eq</span>${T().voice}`; }
+  if (text) { fd.append("text", text); bubble += (bubble ? "<br>" : "") + esc(text); }
+  if (images.length) { images.forEach((f) => fd.append("images", f)); bubble += (bubble ? "<br>" : "") + images.map((f) => `<img src="${URL.createObjectURL(f)}" alt="">`).join(""); }
   if (profile) fd.append("prior_profile", JSON.stringify(profile));
   if ($("save").checked) fd.append("save", "1");
+  const me = addMe(bubble);
+  $("txt").value = ""; images = []; $("tray").innerHTML = "";
+  post(fd, me);
+}
+
+async function post(fd, meBubble) {
+  lastForm = fd; busy = true;
+  const t0 = Date.now();
+  const typing = addAsh("", `<div class="typing"><span class="dots"><i></i><i></i><i></i></span><span id="tick"></span></div>`);
+  const timer = setInterval(() => { const s = Math.round((Date.now() - t0) / 1000); const el = typing.querySelector("#tick"); if (el && s >= 2) el.textContent = T().thinking(s); }, 500);
+  $("status").textContent = "Thinking…";
   try {
     const r = await fetch("/api/turn", { method: "POST", body: fd });
     const d = await r.json();
+    if (!r.ok) throw new Error(d.error || "request failed");
     if (d.profile) profile = d.profile;
-    $("say").textContent = d.say || d.error;
-    speak(d.say, profile?.language);
-    if (d.plan) renderPlan(d.plan, d.check);
+    // replace "Voice message" with what Ash heard, so people can see it understood them
+    if (meBubble && d.profile?.transcript && fd.get("audio")) meBubble.innerHTML = `<span class="icon">graphic_eq</span>${esc(d.profile.transcript)}`;
+    typing.remove();
+    addAsh(d.say);
+    speak(d.say);
+    if (d.plan) renderPlan(d.plan, d.check, d.researching);
   } catch (err) {
-    $("say").textContent = "Connection problem. Try again.";
+    console.error(err);
+    typing.remove();
+    const el = addAsh(T().error, `<div><button class="ghost retry" type="button"><span class="icon">refresh</span>${T().retry}</button></div>`);
+    el.querySelector("button").onclick = () => { el.remove(); post(lastForm); };
   }
-  $("txt").value = ""; images = []; $("thumbs").innerHTML = ""; busy = false;
+  clearInterval(timer);
+  $("status").textContent = "Food on a budget";
+  busy = false;
 }
 
-function esc(s) { return String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c])); }
-function renderPlan(plan, check) {
-  const stops = (plan.stops || []).map((s) => `
-    <div class="stop"><b>${esc(s.day)} ${esc(s.time)}</b> · ${esc(s.name || s.source_id)}<br>
-    <span class="small">${esc(s.address)}${s.travel_minutes != null ? ` · ~${s.travel_minutes} min away` : ""}${s.hours_verified === false ? " · confirm hours first" : ""}</span><br>${esc(s.get)} — $${Number(s.expected_cost_usd || 0).toFixed(2)}
-    <div class="small">${esc(s.why)}</div></div>`).join("");
-  const status = check?.feasible
-    ? `<p class="ok">Checked: every stop is open then, and the plan fits the budget.</p>`
-    : `<p class="warn">Heads up: ${esc((check?.errors || []).join(" "))}</p>`;
-  $("plan").innerHTML = `<div class="card">${status}${stops}
-    <p><b>Total: $${Number(plan.total_expected_cost_usd || 0).toFixed(2)}</b>${plan.days_covered_estimate != null ? ` · feeds the household about ${esc(plan.days_covered_estimate)} days` : ""}</p>
-    ${plan.gap_note ? `<p class="warn">${esc(plan.gap_note)}</p>` : ""}
-    ${""}
-    ${(plan.caveats || []).length ? `<p class="small">${plan.caveats.map(esc).join("<br>")}</p>` : ""}</div>`;
+// ---------- plan ----------
+const ORDER = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+function time12(t) {
+  const [h, m] = String(t || "").split(":").map(Number);
+  if (Number.isNaN(h)) return esc(t);
+  return `${((h + 11) % 12) + 1}:${String(m || 0).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+}
+function dayLabel(day) {
+  const t = T(), today = (new Date().getDay() + 6) % 7, diff = (ORDER.indexOf(day) - today + 7) % 7;
+  return diff === 0 ? t.today : diff === 1 ? t.tomorrow : t.days[day] || day;
+}
+
+function renderPlan(plan, check, researching) {
+  const t = T(), today = (new Date().getDay() + 6) % 7;
+  const mins = (s) => { const [h, m] = String(s.time).split(":").map(Number); return h * 60 + (m || 0); };
+  const stops = [...(plan.stops || [])].sort((a, b) => ((ORDER.indexOf(a.day) - today + 7) % 7 * 1440 + mins(a)) - ((ORDER.indexOf(b.day) - today + 7) % 7 * 1440 + mins(b)));
+  stops.forEach((s, i) => (s.n = i + 1));
+  const unverified = stops.filter((s) => s.hours_verified === false).length;
+  const badge = !check?.feasible
+    ? `<div class="badge bad"><span class="icon">error</span><span>${t.bad} ${esc((check?.errors || []).join(" "))}</span></div>`
+    : unverified ? `<div class="badge warn"><span class="icon">info</span><span>${t.warn(unverified)}</span></div>`
+    : `<div class="badge ok"><span class="icon">verified</span><span>${t.ok}</span></div>`;
+
+  // group by day
+  const groups = [];
+  for (const s of stops) { const g = groups[groups.length - 1]; if (g && g.day === s.day) g.items.push(s); else groups.push({ day: s.day, items: [s] }); }
+  const stopHtml = (s) => {
+    const cost = Number(s.expected_cost_usd || 0), paid = cost > 0;
+    const chips = [
+      !paid ? `<span class="chip g">${t.free}</span>` : "",
+      s.accepts_snap ? `<span class="chip g">${t.snap}</span>` : "",
+      s.health_bucks ? `<span class="chip g">${t.hb}</span>` : "",
+      s.needs_id ? `<span class="chip n">${t.id}</span>` : "",
+      s.hours_verified === false ? `<span class="chip w">${t.confirm}</span>` : "",
+    ].join("");
+    const dest = s.lat != null ? `${s.lat},${s.lng}` : encodeURIComponent(s.address || s.name);
+    return `<div class="stop">
+      <div class="num ${paid ? "paid" : ""}">${s.n}</div>
+      <div class="body">
+        <div class="row1"><span class="time">${time12(s.time)}</span><span class="cost ${paid ? "" : "free"}">${paid ? "$" + cost.toFixed(2) : t.free}</span></div>
+        <div class="place">${esc(s.name || s.source_id)}</div>
+        <div class="meta">${esc(s.address || "")}${s.travel_minutes != null ? ` · ~${s.travel_minutes} ${t.away}` : ""}</div>
+        <div class="get">${esc(s.get || "")}</div>
+        ${chips ? `<div class="chips">${chips}</div>` : ""}
+        <a class="dir" href="https://www.google.com/maps/dir/?api=1&travelmode=transit&destination=${dest}" target="_blank" rel="noopener"><span class="icon" style="font-size:18px">directions</span>${t.dir}</a>
+      </div></div>`;
+  };
+  const notes = [
+    plan.gap_note ? `<div class="gap">${esc(plan.gap_note)}</div>` : "",
+    stops.some((s) => s.why) || (plan.caveats || []).length || researching
+      ? `<details class="more"><summary>${t.more}</summary>
+          ${stops.filter((s) => s.why).map((s) => `<div class="n"><b>${s.n}.</b> ${esc(s.why)}</div>`).join("")}
+          ${(plan.caveats || []).map((c) => `<div class="n">${esc(c)}</div>`).join("")}
+          ${researching ? `<div class="n">${t.research}</div>` : ""}
+        </details>` : "",
+  ].join("");
+
+  const card = document.createElement("div");
+  card.className = "plan";
+  const mapId = "map" + Date.now();
+  card.innerHTML = `
+    <div class="plan-head">
+      <div><div class="total">$${Number(plan.total_expected_cost_usd || 0).toFixed(2)}</div><div class="sub">${t.total}${profile?.budget_usd != null ? ` · of $${Number(profile.budget_usd).toFixed(0)}` : ""}</div></div>
+      ${plan.days_covered_estimate != null ? `<div class="days"><b>${esc(plan.days_covered_estimate)}</b>${t.days_lbl}</div>` : ""}
+    </div>
+    ${badge}
+    <div class="map" id="${mapId}"></div>
+    ${groups.map((g) => `<div class="daygroup"><div class="dayhdr">${dayLabel(g.day)}</div>${g.items.map(stopHtml).join("")}</div>`).join("")}
+    ${notes ? `<div class="notes">${notes}</div>` : ""}`;
+  $("thread").appendChild(card);
+  drawMap(mapId, stops);
+  setTimeout(() => card.scrollIntoView({ behavior: "smooth", block: "start" }), 80); // show the plan from its top
+}
+
+function drawMap(id, stops) {
+  const el = $(id);
+  const pts = stops.filter((s) => s.lat != null && s.lng != null);
+  if (!window.L || !pts.length) { el.remove(); return; }
+  const map = L.map(id, { zoomControl: false, attributionControl: true, scrollWheelZoom: false });
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors", maxZoom: 19,
+  }).addTo(map);
+  const bounds = [];
+  for (const s of pts) {
+    const paid = Number(s.expected_cost_usd || 0) > 0;
+    L.marker([s.lat, s.lng], { icon: L.divIcon({ className: "", html: `<div class="pin ${paid ? "paid" : ""}">${s.n}</div>`, iconSize: [28, 28], iconAnchor: [14, 14] }) })
+      .addTo(map).bindPopup(`<b>${s.n}. ${esc(s.name)}</b><br>${dayLabel(s.day)} ${time12(s.time)}`);
+    bounds.push([s.lat, s.lng]);
+  }
+  if (profile?.home_lat != null) {
+    L.marker([profile.home_lat, profile.home_lng], { icon: L.divIcon({ className: "", html: `<div class="home"></div>`, iconSize: [16, 16], iconAnchor: [8, 8] }) }).addTo(map).bindPopup("You");
+    bounds.push([profile.home_lat, profile.home_lng]);
+  }
+  map.fitBounds(bounds, { padding: [28, 28], maxZoom: 15 });
+  setTimeout(() => map.invalidateSize(), 50);
+  maps.push(map);
 }
 </script>
 </body>

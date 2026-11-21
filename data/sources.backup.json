@@ -37,14 +37,14 @@
         ]
       ]
     },
-    "eligibility": "ID required",
+    "eligibility": "ID Required",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
     "offers": [
       "groceries"
     ],
-    "verified_by": "UNVERIFIED - from nycfoodpolicy.org Central Harlem guide (updated Feb 2024); phone (212) 666-7538",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.nycfoodpolicy.org/nyc-food-resource-guide-central-harlem/ (p=0.96)",
     "stock": null,
     "lat": 40.8085,
     "lng": -73.9465
@@ -59,18 +59,18 @@
       "Wed": [
         [
           "10:00",
-          "11:30"
+          "13:00"
         ]
       ]
     },
-    "eligibility": "ID and proof of address required; one visit per household per month",
+    "eligibility": "ID and proof of address required; limit one visit per month (per West Harlem DC & Lemontree)",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
     "offers": [
-      "groceries"
+      "free groceries"
     ],
-    "verified_by": "UNVERIFIED - from NY Assembly list says Wed 10:00-1:00; CB9 list says Wed 9:30-11:30 - sources CONFLICT, call (212) 862-6401",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.nyc.gov/assets/hra/downloads/pdf/services/efap/CFC_ACTIVE.pdf (p=0.97)",
     "stock": null,
     "notes": "Hours set to the overlap of two conflicting listings until confirmed",
     "lat": 40.8135,
@@ -231,14 +231,15 @@
         ]
       ]
     },
-    "eligibility": "open to all (verify)",
+    "eligibility": "General community may receive pantry once a month with a referral from participating community organizations or NYC Hunger Hotline (866-888-8777); enrolled Iris House clients eligible twice a month",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
     "offers": [
-      "groceries"
+      "free groceries",
+      "prepared meals"
     ],
-    "verified_by": "UNVERIFIED - from CB9 West Harlem pantry list v3; phone 646-548-0100",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.nyc.gov/assets/hra/downloads/pdf/services/efap/CFC_ACTIVE.pdf (p=0.97)",
     "stock": null,
     "lat": 40.817,
     "lng": -73.942
@@ -257,14 +258,14 @@
         ]
       ]
     },
-    "eligibility": "open to all (verify)",
+    "eligibility": "Proof of address / ID required (per Lemontree & NYC Food Policy Center)",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
     "offers": [
       "groceries"
     ],
-    "verified_by": "UNVERIFIED - from CB9 West Harlem pantry list v3; phone 212-749-3656",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.bizmarkiesjustafriend.org/emergency-food-pantry (p=0.96)",
     "stock": null,
     "lat": 40.8105,
     "lng": -73.9465
@@ -516,17 +517,18 @@
         ]
       ]
     },
-    "eligibility": "open to all",
+    "eligibility": "Open to the public (farmers market; not a free pantry)",
     "cost": "paid; produce prices vary",
     "accepts_snap": true,
     "health_bucks": true,
     "offers": [
       "fresh produce"
     ],
-    "verified_by": "UNVERIFIED - from Mount Sinai EHHOP resource page: Tuesdays 10am-7pm, mid-July through November - may be ending for the season, confirm",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://gethealthyharlem.org/events/125th-street-harlem-farmers-market (p=0.93)",
     "stock": null,
     "lat": 40.8087,
-    "lng": -73.948
+    "lng": -73.948,
+    "season_end": "2026-11-27"
   },
   {
     "id": "olcf-8-bronx",
@@ -1545,16 +1547,20 @@
       ]
     },
     "hours_raw": "Sunday 9am-4pm",
-    "eligibility": "open to all",
+    "eligibility": "Open to the public; accepts Cash / Debit / Credit, SNAP EBT, Farmer's Market Nutrition Program, FreshConnect Coupons, Healthfirst OTC (Select Plans), Health Bucks, and Greenmarket Bucks",
     "cost": "paid",
     "accepts_snap": true,
     "health_bucks": true,
-    "offers": [],
+    "offers": [
+      "farmers market",
+      "fresh produce",
+      "local farm products"
+    ],
     "phone": null,
     "website": "https://www.grownyc.org/greenmarket/manhattan/79th-street",
     "lat": 40.782778,
     "lng": -73.976389,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: farmers_markets, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.grownyc.org/greenmarket/manhattan/79th-street (p=0.96)",
     "stock": null
   },
   {
@@ -1694,18 +1700,34 @@
     "aliases": [],
     "type": "pantry",
     "address": "585 Woodward Avenue, Ridgewood, NY, 11385, USA",
-    "hours": {},
+    "hours": {
+      "Mon": [
+        [
+          "08:00",
+          "10:00"
+        ]
+      ],
+      "Wed": [
+        [
+          "08:00",
+          "10:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "No requirements; no appointment or pre-registration needed; first come, first serve until food runs out",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries",
+      "fresh produce"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.7064848,
     "lng": -73.9080537,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.foodhelpline.org/resources/woodbine (p=0.97)",
     "stock": null
   },
   {
@@ -2314,18 +2336,49 @@
     "aliases": [],
     "type": "pantry",
     "address": "263 W 86th Street, New York, New York, 10024",
-    "hours": {},
+    "hours": {
+      "Tue": [
+        [
+          "09:00",
+          "13:00"
+        ]
+      ],
+      "Wed": [
+        [
+          "09:00",
+          "13:00"
+        ]
+      ],
+      "Thu": [
+        [
+          "09:00",
+          "13:00"
+        ]
+      ],
+      "Fri": [
+        [
+          "09:00",
+          "13:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Accepting new customers from zip codes 10019, 10023, 10069, 10024, and 10025; photo ID and proof of address required for first-time pickup; returning customers can pick up once a month",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries",
+      "fresh produce",
+      "protein",
+      "whole grains",
+      "low-fat dairy"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.7889381,
     "lng": -73.977291,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.wscah.org/services (p=0.97)",
     "stock": null
   },
   {
@@ -2584,18 +2637,27 @@
     "aliases": [],
     "type": "pantry",
     "address": "257 Macon Street, Brooklyn, New York, 11216",
-    "hours": {},
+    "hours": {
+      "Sat": [
+        [
+          "06:00",
+          "09:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "ID required",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.6822891,
     "lng": -73.9411052,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.foodhelpline.org/resources/newman-memorial-united-church-community-development-corp (p=0.96)",
     "stock": null
   },
   {
@@ -2704,9 +2766,16 @@
     "aliases": [],
     "type": "pantry",
     "address": "2190 Adam Clayton Powell Jr Boulevard, New York, New York, 10027",
-    "hours": {},
+    "hours": {
+      "Fri": [
+        [
+          "11:00",
+          "13:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "ID required; bring own bags/shopping cart; first-come, first-served until supplies last",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
@@ -2715,7 +2784,7 @@
     "website": null,
     "lat": 40.811811,
     "lng": -73.9465898,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.nycfoodpolicy.org/nyc-food-resource-guide-central-harlem/ (p=0.97)",
     "stock": null
   },
   {
@@ -3038,18 +3107,27 @@
     "aliases": [],
     "type": "pantry",
     "address": "59-02 Summerfield Street, Ridgewood, New York, 11385",
-    "hours": {},
+    "hours": {
+      "Sat": [
+        [
+          "10:00",
+          "11:30"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "ID required; no appointment needed",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.6992109,
     "lng": -73.897699,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.foodhelpline.org/resources/agape-christian-center (p=0.97)",
     "stock": null
   },
   {
@@ -4353,18 +4431,36 @@
     "aliases": [],
     "type": "pantry",
     "address": "552 W End Avenue, New York, New York, 10024",
-    "hours": {},
+    "hours": {
+      "Mon": [
+        [
+          "19:00",
+          null
+        ]
+      ],
+      "Sat": [
+        [
+          "16:00",
+          null
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Open to everyone who comes to the door; first come, first serve until food runs out",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "takeaway meals",
+      "soup",
+      "sandwiches",
+      "fruit"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.78927,
     "lng": -73.9771556,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.saintignatiusnyc.org/Pages/Education&Outreach/SoupKitchen&Outreach.html (p=0.97)",
     "stock": null
   },
   {
@@ -4413,18 +4509,53 @@
     "aliases": [],
     "type": "pantry",
     "address": "296 9th Avenue, New York, New York, 10001",
-    "hours": {},
+    "hours": {
+      "Tue": [
+        [
+          "09:30",
+          "11:00"
+        ],
+        [
+          "13:30",
+          "15:00"
+        ]
+      ],
+      "Wed": [
+        [
+          "09:30",
+          "11:00"
+        ],
+        [
+          "13:30",
+          "15:00"
+        ]
+      ],
+      "Thu": [
+        [
+          "09:30",
+          "11:00"
+        ],
+        [
+          "13:30",
+          "15:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Everyone is welcome, without question or qualification. To enroll or make a pantry reservation, text \"FOOD\" to PANTRY (726-879) and select HASK, or stop by during Pantry hours.",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "dried goods",
+      "produce",
+      "protein and dairy"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.7493539,
     "lng": -73.998973,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://holyapostlesnyc.org/ (p=0.97)",
     "stock": null
   },
   {
@@ -4473,9 +4604,22 @@
     "aliases": [],
     "type": "pantry",
     "address": "201 Lenox Avenue, New York, New York, 10027",
-    "hours": {},
+    "hours": {
+      "Tue": [
+        [
+          "10:30",
+          "11:30"
+        ]
+      ],
+      "Wed": [
+        [
+          "10:30",
+          "11:30"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Current photo ID required, preferably government-issued; one visit per week",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
@@ -4484,7 +4628,7 @@
     "website": null,
     "lat": 40.804735,
     "lng": -73.947828,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.nycfoodpolicy.org/nyc-food-resource-guide-central-harlem/ (p=0.97)",
     "stock": null
   },
   {
@@ -5522,18 +5666,52 @@
     "aliases": [],
     "type": "pantry",
     "address": "64 WEST 35th Street, 3RD FL, New York, NY, 10001, USA",
-    "hours": {},
+    "hours": {
+      "Mon": [
+        [
+          "06:00",
+          "14:00"
+        ]
+      ],
+      "Tue": [
+        [
+          "06:00",
+          "14:00"
+        ]
+      ],
+      "Wed": [
+        [
+          "06:00",
+          "14:00"
+        ]
+      ],
+      "Thu": [
+        [
+          "06:00",
+          "14:00"
+        ]
+      ],
+      "Fri": [
+        [
+          "06:00",
+          "14:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "ID and registration required. Primarily serves registered clients (people with two or more chronic illnesses, HIV, or mental health/substance use issues); emergency food is available once for first-time non-clients and ongoing for registered clients. Walk-ins welcome for intake Mon-Fri preferably by 4:00 PM (bring ID and Medicaid card).",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries",
+      "emergency food"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.7501422,
     "lng": -73.9868341,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.foodhelpline.org/resources/aids-service-center-of-lower-manhattan-1 (p=0.96)",
     "stock": null
   },
   {
@@ -6076,18 +6254,28 @@
     "aliases": [],
     "type": "pantry",
     "address": "410 W 40th Street, New York, New York, 10018",
-    "hours": {},
+    "hours": {
+      "Sat": [
+        [
+          "09:00",
+          "11:30"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Identification (preferably photo ID) required for all guests, plus ID and proof of shared address for each household member if picking up for more than one person. Appointments via Plentiful app; walk-ins without an appointment accepted 11:00-11:30 AM.",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries",
+      "fresh produce"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.7571935,
     "lng": -73.9943464,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://rmmnyc.org/programs/food-pantry (p=0.91)",
     "stock": null
   },
   {
@@ -6694,9 +6882,16 @@
     "aliases": [],
     "type": "pantry",
     "address": "41 W 124th Street, New York, New York, 10027",
-    "hours": {},
+    "hours": {
+      "Sat": [
+        [
+          "07:30",
+          "11:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "ID is recommended, however no one will be turned away; one visit per week; first-come, first-served until food runs out",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
@@ -6705,7 +6900,7 @@
     "website": null,
     "lat": 40.806523,
     "lng": -73.944391,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.nycfoodpolicy.org/nyc-food-resource-guide-central-harlem/ (p=0.97)",
     "stock": null
   },
   {
@@ -7173,18 +7368,33 @@
     "aliases": [],
     "type": "pantry",
     "address": "956 Marcy Avenue, Brooklyn, New York, 11216",
-    "hours": {},
+    "hours": {
+      "Tue": [
+        [
+          "10:30",
+          "13:00"
+        ]
+      ],
+      "Thu": [
+        [
+          "10:30",
+          "13:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Photo ID required",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.6806203,
     "lng": -73.9466317,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.beulahchurchofgodinchristjesus.org/copy-of-our-leaders-1 (p=0.96)",
     "stock": null
   },
   {
@@ -7233,18 +7443,35 @@
     "aliases": [],
     "type": "pantry",
     "address": "376 Throop Avenue, Brooklyn, New York, 11221",
-    "hours": {},
+    "hours": {
+      "Tue": [
+        [
+          "10:00",
+          "12:00"
+        ]
+      ],
+      "Thu": [
+        [
+          "10:00",
+          "12:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Registration required: bring ID and proof of family size. Shopping is by family size 1-6, once per month.",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries",
+      "fresh fruits and vegetables",
+      "refrigerated and frozen products"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.6913236,
     "lng": -73.9428995,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://nebhdco.org/golden-harvest-food-pantry/ (p=0.97)",
     "stock": null
   },
   {
@@ -7273,18 +7500,35 @@
     "aliases": [],
     "type": "pantry",
     "address": "88 Hanson Place, Brooklyn, NY, 11217, USA",
-    "hours": {},
+    "hours": {
+      "Thu": [
+        [
+          "13:00",
+          "17:00"
+        ]
+      ],
+      "Sun": [
+        [
+          "13:00",
+          "15:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Open to all (no ID or registration required per Lemontree; bring your own bag or cart)",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries",
+      "fresh produce",
+      "clothing"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.6851925,
     "lng": -73.9739578,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://hansonplace.org/ministries/community-services/ (p=0.96)",
     "stock": null
   },
   {
@@ -7313,18 +7557,30 @@
     "aliases": [],
     "type": "pantry",
     "address": "201 W 13rd Street, New York, New York, 10011",
-    "hours": {},
+    "hours": {
+      "Tue": [
+        [
+          "14:00",
+          "16:30"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Food pantry groceries are by reservation/appointment only via the Plentiful App (reservations open early Saturday mornings for the following Tuesday); photo ID and weekly TEFAP attestation required.",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "groceries",
+      "fresh produce",
+      "ready-to-eat meals",
+      "hot community meal"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.7381373,
     "lng": -74.0003114,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.thereddoorplace.org/ (p=0.97)",
     "stock": null
   },
   {
@@ -9159,18 +9415,27 @@
     "aliases": [],
     "type": "pantry",
     "address": "800 Marcy Avenue, Brooklyn, New York, 11216",
-    "hours": {},
+    "hours": {
+      "Fri": [
+        [
+          "07:00",
+          "11:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "No requirements; no appointment or pre-registration needed.",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.6862644,
     "lng": -73.9478074,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.foodhelpline.org/resources/st-george-s-episcopal-church-food-pantry-1 (p=0.97)",
     "stock": null
   },
   {
@@ -9910,18 +10175,29 @@
     "aliases": [],
     "type": "pantry",
     "address": "346 W 20th Street, New York, New York, 10011",
-    "hours": {},
+    "hours": {
+      "Sat": [
+        [
+          "10:30",
+          "11:30"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Open to individuals and low-income families facing food insecurity; primarily serves Chelsea (10011) and adjacent neighborhood to the north while welcoming neighbors from across NYC in need. No appointment required.",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "shelf-stable food items",
+      "no-cook items upon request",
+      "essential supplies"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.7440865,
     "lng": -74.0019569,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.stpeterschelsea.org/foodpantry.html (p=0.96)",
     "stock": null
   },
   {
@@ -11446,18 +11722,27 @@
     "aliases": [],
     "type": "pantry",
     "address": "765 Lafayette Avenue, Brooklyn, New York, 11221",
-    "hours": {},
+    "hours": {
+      "Thu": [
+        [
+          "12:30",
+          "14:30"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Walk in, no appointment needed; no residency requirement or ID requirement stated.",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free food"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.6911736,
     "lng": -73.9422009,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.serve.love/resources/food-pantries/brooklyn-ny/st-philip-s-christian-church-wxsp55s7/ (p=0.97)",
     "stock": null
   },
   {
@@ -11533,18 +11818,28 @@
     "aliases": [],
     "type": "pantry",
     "address": "228 York Street, Brooklyn, NY, 11201, USA",
-    "hours": {},
+    "hours": {
+      "Tue": [
+        [
+          "12:00",
+          null
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Open to anyone in need; no eligibility requirements or appointment needed",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "fresh produce",
+      "pantry staples"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.7011762,
     "lng": -73.9811567,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.vhfp.org/supportvhfp (p=0.94)",
     "stock": null
   },
   {
@@ -11876,14 +12171,7 @@
     "aliases": [],
     "type": "farmers_market",
     "address": "Rockefeller Center, New York, NY 10020",
-    "hours": {
-      "Wed": [
-        [
-          "08:00",
-          "15:00"
-        ]
-      ]
-    },
+    "hours": {},
     "hours_raw": "Wednesday 8am-3pm",
     "eligibility": "open to all",
     "cost": "paid",
@@ -11895,7 +12183,8 @@
     "lat": 40.7592576,
     "lng": -73.9799569,
     "verified_by": "UNVERIFIED - Saved by the Plate map export (source: comprehensive_food_access, last updated 2025-11-07)",
-    "stock": null
+    "stock": null,
+    "hours_note": "temporarily_closed"
   },
   {
     "id": "united-community-baptist-church",
@@ -12171,18 +12460,33 @@
     "aliases": [],
     "type": "pantry",
     "address": "203 W 133rd Street, New York, New York, 10030",
-    "hours": {},
+    "hours": {
+      "Tue": [
+        [
+          "11:00",
+          "14:00"
+        ]
+      ],
+      "Thu": [
+        [
+          "11:00",
+          "14:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "First-come, first-served; ID required; must bring own bags/cart (per Lemontree)",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.8142455,
     "lng": -73.9449435,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.nyc.gov/assets/hra/downloads/pdf/services/efap/CFC_ACTIVE.pdf (p=0.97)",
     "stock": null
   },
   {
@@ -12481,18 +12785,44 @@
     "aliases": [],
     "type": "pantry",
     "address": "307 W 38th Street, New York, New York, 10018",
-    "hours": {},
+    "hours": {
+      "Tue": [
+        [
+          "11:00",
+          "14:00"
+        ]
+      ],
+      "Wed": [
+        [
+          "11:00",
+          "14:00"
+        ]
+      ],
+      "Thu": [
+        [
+          "11:00",
+          "14:00"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "GMHC clients living with HIV/AIDS in the 5 boroughs who meet income eligibility requirements (annual income under $50,000 for Keith Haring Food Pantry). Contact nutrition@gmhc.org or 212-367-1420 to enroll.",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries",
+      "fresh produce",
+      "meat",
+      "dairy",
+      "eggs",
+      "hot lunch"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.7550594,
     "lng": -73.9921483,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://gmhc.org/meals-nourish-body-and-spirit/ (p=0.96)",
     "stock": null
   },
   {
@@ -14002,18 +14332,29 @@
     "aliases": [],
     "type": "pantry",
     "address": "360 Schermerhorn Street, Brooklyn, New York, 11217",
-    "hours": {},
+    "hours": {
+      "Sat": [
+        [
+          "09:00",
+          "10:30"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "Anyone is welcome",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "canned goods",
+      "frozen meat",
+      "produce"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.6865211,
     "lng": -73.9803368,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://nextstepcc.org/what-we-do/ (p=0.96)",
     "stock": null
   },
   {
@@ -14142,18 +14483,27 @@
     "aliases": [],
     "type": "pantry",
     "address": "54-60 W 132nd Street, New York, New York, 100373",
-    "hours": {},
+    "hours": {
+      "Thu": [
+        [
+          "09:30",
+          "11:30"
+        ]
+      ]
+    },
     "hours_raw": null,
-    "eligibility": "unknown - call ahead",
+    "eligibility": "ID required; must bring own bags/cart; no appointment needed (per Lemontree)",
     "cost": "free",
     "accepts_snap": false,
     "health_bucks": false,
-    "offers": [],
+    "offers": [
+      "free groceries"
+    ],
     "phone": null,
     "website": null,
     "lat": 40.8140021,
     "lng": -73.9465626,
-    "verified_by": "UNVERIFIED - Saved by the Plate map export (source: nyc_food_access_cleaned, last updated 2025-11-07)",
+    "verified_by": "AGENT-VERIFIED 2026-11-21 from https://www.nyc.gov/assets/hra/downloads/pdf/services/efap/CFC_ACTIVE.pdf (p=0.97)",
     "stock": null
   },
   {
